@@ -3,80 +3,43 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Quoth the Giphy</title>
+  <title>The Magical Cat Button</title>
 </head>
 
 <body>
-  <div id="buttons">
-    <button data-person="arnold schwarzenegger">
-      I'll be back
-    </button>
-    <button data-person="michael j fox">
-      My happiness grows in direct proportion to my acceptance,
-      and in inverse proportion to my expectations.
-    </button>
-
-    <!-- STEP ONE: Open this file in the browser and click on the buttons. Watch what happens -->
-
-    <!-- STEP TWO: between the dashed lines below
-            * add three more buttons
-            * add a data-person attribute of famous people you know
-            * with a quote said by them -->
-
-    <!-- **************************************** -->
-
-    <button data-person="marlon brando">
-      I'll make him an offer he can't refuse
-    </button>
-    <button data-person="cuba gooding jr">
-      Show me the money!
-    </button>
-    <button data-person="danny glover">
-      I'm too old for this shit.
-    </button>
-    
-    <!-- **************************************** -->
-
-
-    <!-- STEP THREE: open this file in the browser and click on your buttons. If they don't work, then fix your buttons -->
-
-    <!-- STEP FOUR: go over the JavaScript with your partners, and explain the lines of code to each other. -->
-
+  <button id="cat-button">magical cat button</button>
+  <div id="images">
   </div>
-
-  <div id="gifs-appear-here">
-  </div>
-
   <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
   <script type="text/javascript">
-    $("button").on("click", function() {
-      var person = $(this).attr("data-person");
-      var queryURL = "http://api.giphy.com/v1/gifs/search?q=" +
-        person + "&api_key=dc6zaTOxFJmzC&limit=10";
+    // has the document monitor for clicks on the button for "cat-button"
+    $("#cat-button").on("click", function() {
 
+      // saves the URL to the variable so its easily callable later.
+      var queryURL = "http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=cats";
+
+      // runs the querey to the API
       $.ajax({
-          url: queryURL,
-          method: "GET"
-        })
-        .done(function(response) {
-          var results = response.data;
+        url: queryURL,
+        method: "GET"
+      })
 
-          for (var i = 0; i < results.length; i++) {
-            var gifDiv = $("<div class='item'>");
+      // saves the call to API to the Response
+      .done(function(response) {
 
-            var rating = results[i].rating;
+        // calls the right portion of the received information from the API query
+        var imageUrl = response.data.image_original_url;
 
-            var p = $("<p>").text("Rating: " + rating);
+        // creates the element needed for the HTML injection
+        var catImage = $("<img>");
 
-            var personImage = $("<img>");
-            personImage.attr("src", results[i].images.fixed_height.url);
+        // attaches the source URL and tags needed for the images injected to the HTML
+        catImage.attr("src", imageUrl);
+        catImage.attr("alt", "cat image");
 
-            gifDiv.prepend(p);
-            gifDiv.prepend(personImage);
-
-            $("#gifs-appear-here").prepend(gifDiv);
-          }
-        });
+        // prepends the information to the beginning of the html added to the above div for every click. 
+        $("#images").prepend(catImage);
+      });
     });
   </script>
 </body>
