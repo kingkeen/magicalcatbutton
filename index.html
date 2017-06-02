@@ -10,13 +10,13 @@
   <button id="cat-button">magical cat button</button>
   <div id="images">
   </div>
-  <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+  <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
   <script type="text/javascript">
     // has the document monitor for clicks on the button for "cat-button"
     $("#cat-button").on("click", function() {
 
       // saves the URL to the variable so its easily callable later.
-      var queryURL = "http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=cats";
+      var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=cats";
 
       // runs the querey to the API
       $.ajax({
